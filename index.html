@@ -3,41 +3,364 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Clone - Epinuke</title>
+    <title>Cosmic Chat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <div id="app-container">
         <div class="sidebar">
             <div class="server-list">
-                <div class="server-icon active">🚀</div>
-                <div class="server-icon">🎮</div>
-                <div class="server-icon">🎵</div>
+                <div class="server-icon active" title="Nebula HQ">🚀</div>
+                <div class="server-icon" title="Gaming Galaxy">🎮</div>
+                <div class="server-icon" title="Music Sphere">🎵</div>
             </div>
             <div class="channel-list">
-                <div class="channel-header">TEXT CHANNELS</div>
-                <div class="channel-item active"># general</div>
-                <div class="channel-item"># random</div>
-                <div class="channel-item"># announcements</div>
+                <div class="channel-header">
+                    <span>Text Channels</span>
+                </div>
+                <div class="channel-item active"># general-chat</div>
+                <div class="channel-item"># off-topic</div>
+                <div class="channel-item"># project-updates</div>
             </div>
         </div>
         <div class="chat-container">
             <div class="chat-header">
-                <h2># general</h2>
-                <button id="epinuke-button" disabled>
-                    Epinuke Ready in 5:00
+                <div class="channel-title">
+                    <span class="hashtag">#</span>
+                    <h2>general-chat</h2>
+                </div>
+                <button id="epinuke-button" title="Removes the last 5 messages for everyone!">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" fill="currentColor">
+                        <path d="M400 0H112C76.7 0 48 28.7 48 64v32H16c-8.8 0-16 7.2-16 16s7.2 16 16 16h32v32c0 8.8 7.2 16 16 16s16-7.2 16-16V128h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H112V64c0-17.7 14.3-32 32-32h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16h224c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c17.7 0 32 14.3 32 32v32h32c8.8 0 16 7.2 16 16s-7.2 16-16 16H432v32c0 8.8-7.2 16-16 16s-16-7.2-16-16V128H368c-8.8 0-16-7.2-16-16s7.2-16 16-16h32V64c0-17.7-14.3-32-32-32H176c-8.8 0-16-7.2-16-16s7.2-16 16-16h224zM32 192c-17.7 0-32 14.3-32 32V480c0 17.7 14.3 32 32 32H480c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32H32zm96 96c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm128 0c0-8.8 7.2-16 16-16H400c8.8 0 16 7.2 16 16s-7.2 16-16 16H272c-8.8 0-16-7.2-16-16zm0 96c0-8.8 7.2-16 16-16H400c8.8 0 16 7.2 16 16s-7.2 16-16 16H272c-8.8 0-16-7.2-16-16z"/>
+                    </svg>
+                    <span>NUKE</span>
                 </button>
             </div>
             <ul id="messages"></ul>
             <form id="form" action="">
-                <input id="input" autocomplete="off" placeholder="Message #general" />
-                <button>Send</button>
+                <input id="input" autocomplete="off" placeholder="Message #general-chat" />
+                <button type="submit">Send</button>
             </form>
         </div>
     </div>
-    <div id="explosion"></div>
+    <div id="explosion-container">
+        <div id="explosion"></div>
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/client.js"></script>
 </body>
-</html>
+</html>```
+
+---
+
+### File 2: `style.css` (Completely Overhauled)
+
+This is where the magic happens. We're replacing the old styles with our new "Cosmic Void" theme.
+
+```css
+/* --- Google Font Import --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* --- Cosmic Void Color Scheme --- */
+:root {
+    --background-deep-space: #0f0c29;
+    --background-primary: #1d193b;
+    --background-secondary: #24244f;
+    --background-tertiary: #191632;
+    --accent-glow: #a64ac9;
+    --accent-glow-hover: #bf6ee0;
+    --text-primary: #f2f2f2;
+    --text-secondary: #b3b3e6;
+    --text-muted: #6f6f9e;
+    --danger: #ff4757;
+    --success: #2ed573;
+    --font-primary: 'Poppins', sans-serif;
+}
+
+/* --- Base & Animations --- */
+* {
+    box-sizing: border-box;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+body {
+    font-family: var(--font-primary);
+    margin: 0;
+    color: var(--text-primary);
+    background: var(--background-deep-space);
+    overflow: hidden;
+}
+
+body.shake {
+    animation: screen-shake 0.4s ease-out;
+}
+
+@keyframes screen-shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+}
+
+@keyframes fade-in-slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+#app-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* --- Sidebar & Servers --- */
+.sidebar {
+    display: flex;
+    flex-shrink: 0;
+}
+
+.server-list {
+    width: 72px;
+    background-color: var(--background-deep-space);
+    padding: 12px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.server-icon {
+    width: 48px;
+    height: 48px;
+    background-color: var(--background-primary);
+    border-radius: 50%;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.server-icon:hover {
+    border-radius: 16px;
+    background-color: var(--accent-glow);
+}
+
+.server-icon.active {
+    border-radius: 16px;
+    background-color: var(--accent-glow);
+}
+
+.server-icon.active::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    width: 4px;
+    height: 40px;
+    background-color: var(--text-primary);
+    border-radius: 0 4px 4px 0;
+}
+
+
+/* --- Channel List --- */
+.channel-list {
+    width: 240px;
+    background-color: var(--background-tertiary);
+    padding: 12px 8px 12px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.channel-header {
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 16px;
+    margin-bottom: 8px;
+}
+
+.channel-item {
+    color: var(--text-secondary);
+    padding: 8px 16px;
+    margin-right: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.channel-item:hover {
+    background-color: var(--background-secondary);
+    color: var(--text-primary);
+}
+
+.channel-item.active {
+    background-color: var(--background-secondary);
+    color: var(--text-primary);
+}
+
+
+/* --- Main Chat Area --- */
+.chat-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-primary);
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    height: 52px;
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--background-tertiary);
+    z-index: 2;
+}
+
+.channel-title {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+}
+
+.channel-title .hashtag {
+    color: var(--text-muted);
+    font-size: 24px;
+    margin-right: 8px;
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 20px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.message, .notification {
+    padding: 8px 20px;
+    margin-bottom: 4px;
+    animation: fade-in-slide-up 0.3s ease-out;
+}
+
+.message:hover {
+    background-color: rgba(36, 36, 79, 0.5);
+}
+
+.message .username {
+    font-weight: 600;
+    color: var(--accent-glow);
+    margin-right: 12px;
+}
+
+.notification {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 14px;
+    text-align: center;
+}
+
+#form {
+    padding: 0 16px 24px 16px;
+    display: flex;
+    background-color: var(--background-primary);
+}
+
+#input {
+    border: none;
+    padding: 12px 16px;
+    flex-grow: 1;
+    border-radius: 8px;
+    background-color: var(--background-secondary);
+    color: var(--text-primary);
+    font-size: 16px;
+    font-family: var(--font-primary);
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+#input:focus {
+    box-shadow: 0 0 0 2px var(--accent-glow);
+}
+
+#form button {
+    background: var(--accent-glow);
+    border: none;
+    padding: 0 16px;
+    margin-left: 10px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+#form button:hover {
+    background-color: var(--accent-glow-hover);
+}
+
+/* --- Epinuke Feature --- */
+#epinuke-button {
+    background-color: var(--danger);
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+#epinuke-button:hover {
+    filter: brightness(1.15);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+#explosion-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 9999;
+}
+
+#explosion {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1px;
+    height: 1px;
+    background: radial-gradient(circle, #fff, #ffcc00, var(--danger), transparent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+}
+
+#explosion.nuke {
+    animation: explode 0.5s ease-out forwards;
+}
+
+@keyframes explode {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { transform: translate(-50%, -50%) scale(4000); opacity: 0; }
+}
