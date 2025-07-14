@@ -1,0 +1,215 @@
+:root {
+    --background-primary: #36393f;
+    --background-secondary: #2f3136;
+    --background-tertiary: #202225;
+    --channel-text: #8e9297;
+    --text-normal: #dcddde;
+    --text-muted: #72767d;
+    --interactive-normal: #b9bbbe;
+    --interactive-hover: #dcddde;
+    --button-primary-bg: #5865f2;
+    --button-danger-bg: #ed4245;
+}
+
+body {
+    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    color: var(--text-normal);
+    background-color: var(--background-primary);
+    overflow: hidden;
+}
+
+#app-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* --- Sidebar & Channels --- */
+.sidebar {
+    display: flex;
+    background-color: var(--background-tertiary);
+}
+
+.server-list {
+    width: 72px;
+    background-color: var(--background-tertiary);
+    padding-top: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.server-icon {
+    width: 48px;
+    height: 48px;
+    background-color: var(--background-primary);
+    border-radius: 50%;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.server-icon:hover, .server-icon.active {
+    border-radius: 16px;
+    background-color: var(--button-primary-bg);
+}
+
+.channel-list {
+    width: 240px;
+    background-color: var(--background-secondary);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.channel-header {
+    color: var(--channel-text);
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.channel-item {
+    color: var(--channel-text);
+    padding: 6px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.channel-item.active {
+    background-color: rgba(79,84,92,0.32);
+    color: var(--text-normal);
+}
+
+/* --- Chat Area --- */
+.chat-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-primary);
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    height: 48px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.2), 0 1.5px 0 rgba(0,0,0,0.05), 0 2px 0 rgba(0,0,0,0.05);
+    z-index: 2;
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 20px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+#messages li {
+    padding: 8px 0;
+}
+
+#messages li .username {
+    font-weight: 500;
+    color: var(--interactive-hover);
+}
+
+#messages li .message-body {
+    margin-left: 10px;
+}
+
+#messages .notification {
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+}
+
+#form {
+    background: var(--background-primary);
+    padding: 0 16px 24px 16px;
+    display: flex;
+}
+
+#input {
+    border: none;
+    padding: 12px;
+    flex-grow: 1;
+    border-radius: 8px;
+    background-color: #40444b;
+    color: var(--text-normal);
+    font-size: 16px;
+}
+
+#input::placeholder {
+    color: var(--text-muted);
+}
+
+#form button {
+    background: var(--button-primary-bg);
+    border: none;
+    padding: 0 16px;
+    margin-left: 10px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+/* --- Epinuke Feature --- */
+#epinuke-button {
+    background-color: var(--button-danger-bg);
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#epinuke-button:disabled {
+    background-color: var(--background-secondary);
+    color: var(--text-muted);
+    cursor: not-allowed;
+}
+
+#epinuke-button:not(:disabled):hover {
+    filter: brightness(1.1);
+}
+
+#explosion {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 1px;
+    height: 1px;
+    background: radial-gradient(circle, #ffcc00, #ff6600, #ff0000, #000);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+#explosion.nuke {
+    animation: explode 0.5s ease-out forwards;
+}
+
+@keyframes explode {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(3000);
+        opacity: 0;
+    }
+}
