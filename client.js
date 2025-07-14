@@ -1,4 +1,4 @@
-const socket = io();
+const socket = io('https://epicord.onrender.com'); // <-- PASTE YOUR RENDER URL HERE
 
 const form = document.getElementById('form');
 const input = document.getElementById('input');
