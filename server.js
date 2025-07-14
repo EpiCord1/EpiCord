@@ -15,20 +15,25 @@ io.on('connection', (socket) => {
   // Listen for a new user joining
   socket.on('new user', (username) => {
     socket.username = username;
-    // Broadcast to all clients that a user has connected
     io.emit('user connected', `${username} has joined the chat`);
   });
 
   // Listen for chat messages
   socket.on('chat message', (msg) => {
-    // Broadcast the message to all clients
     io.emit('chat message', { user: socket.username, msg: msg });
   });
 
+  // *** NEW: Listen for the Epinuke trigger from one client ***
+  socket.on('epinuke trigger', (username) => {
+    // Broadcast the "blast" event to ALL connected clients
+    console.log(`${username} triggered the Epinuke`);
+    io.emit('epinuke blast', username);
+  });
+
+  // Listen for a user disconnecting
   socket.on('disconnect', () => {
     console.log('A user disconnected');
     if (socket.username) {
-      // Broadcast to all clients that a user has left
       io.emit('user disconnected', `${socket.username} has left the chat`);
     }
   });
