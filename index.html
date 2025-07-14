@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Clone - Epinuke</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div id="app-container">
+        <div class="sidebar">
+            <div class="server-list">
+                <div class="server-icon active">🚀</div>
+                <div class="server-icon">🎮</div>
+                <div class="server-icon">🎵</div>
+            </div>
+            <div class="channel-list">
+                <div class="channel-header">TEXT CHANNELS</div>
+                <div class="channel-item active"># general</div>
+                <div class="channel-item"># random</div>
+                <div class="channel-item"># announcements</div>
+            </div>
+        </div>
+        <div class="chat-container">
+            <div class="chat-header">
+                <h2># general</h2>
+                <button id="epinuke-button" disabled>
+                    Epinuke Ready in 5:00
+                </button>
+            </div>
+            <ul id="messages"></ul>
+            <form id="form" action="">
+                <input id="input" autocomplete="off" placeholder="Message #general" />
+                <button>Send</button>
+            </form>
+        </div>
+    </div>
+    <div id="explosion"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client.js"></script>
+</body>
+</html>
