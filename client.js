@@ -1,4 +1,4 @@
-const socket = io('https://epicord.onrender.com'); // <-- PASTE YOUR RENDER URL HERE
+const socket = io('epicord.onrender.com'); // Connect to the server (Remember to update this URL if hosting on Render/Glitch)
 
 // --- DOM Elements ---
 const form = document.getElementById('form');
@@ -12,7 +12,7 @@ const body = document.body;
 let username = '';
 while (!username || !username.trim()) {
     username = prompt("Please enter your username:");
-    if (username === null) { // Handle clicking 'cancel' on the prompt
+    if (username === null) {
         username = `Guest${Math.floor(Math.random() * 1000)}`;
     }
 }
@@ -21,16 +21,13 @@ socket.emit('new user', username);
 // --- Chat Functions ---
 function addChatMessage(user, msg) {
     const item = document.createElement('li');
-    item.className = 'message'; // For styling and animation
-
+    item.className = 'message';
     const userSpan = document.createElement('span');
     userSpan.className = 'username';
     userSpan.textContent = user;
-
     const msgSpan = document.createElement('span');
     msgSpan.className = 'message-body';
     msgSpan.textContent = msg;
-    
     item.appendChild(userSpan);
     item.appendChild(msgSpan);
     messages.appendChild(item);
@@ -39,7 +36,7 @@ function addChatMessage(user, msg) {
 
 function addNotification(msg) {
     const item = document.createElement('li');
-    item.className = 'notification'; // For styling and animation
+    item.className = 'notification';
     item.textContent = msg;
     messages.appendChild(item);
     messages.scrollTop = messages.scrollHeight;
@@ -66,27 +63,33 @@ socket.on('user disconnected', (msg) => {
     addNotification(`← ${msg} →`);
 });
 
-// --- Epinuke Feature Logic (Cooldown Removed) ---
+
+// --- Epinuke Feature Logic (Networked) ---
+
+// 1. When a user clicks the button, tell the server.
 epinukeButton.addEventListener('click', () => {
-    // 1. Trigger explosion and screen shake animations
+    socket.emit('epinuke trigger', username);
+});
+
+// 2. When the server broadcasts the 'epinuke blast' event, EVERYONE runs this code.
+socket.on('epinuke blast', (triggeringUser) => {
+    // Trigger explosion and screen shake animations
     explosionDiv.classList.add('nuke');
     body.classList.add('shake');
-    
-    // 2. Remove the last 5 messages from the DOM
+
+    // Remove the last 5 messages from the local DOM
     const allMessages = messages.querySelectorAll('li');
     const messageCount = allMessages.length;
     const start = Math.max(0, messageCount - 5);
-    
-    // Create a static copy of the nodes to remove, as the live collection changes
     const nodesToRemove = Array.from(allMessages).slice(start);
     nodesToRemove.forEach(node => node.remove());
-    
-    // 3. Add a notification about the nuke
-    addNotification(`*** ${username} triggered the Epinuke! Last 5 messages cleared. ***`);
 
-    // 4. Remove animation classes after they finish to allow re-triggering
+    // Add a notification showing who triggered the nuke
+    addNotification(`*** ${triggeringUser} triggered the Epinuke! Last 5 messages cleared. ***`);
+
+    // Remove animation classes after they finish
     setTimeout(() => {
         explosionDiv.classList.remove('nuke');
         body.classList.remove('shake');
-    }, 500); // Duration should match the longest animation
+    }, 500); // This duration should match your CSS animation time
 });
